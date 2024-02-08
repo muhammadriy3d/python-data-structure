@@ -21,3 +21,9 @@ make test
 # Usage
 
 Take the build package file and use it as normal or the linked_list.py file
+
+# Credits
+
+2023 (c) Muhammad Riyad, All right reversed.
+
+happy coding!!!!!!!!!!!
