@@ -1,12 +1,12 @@
-# python-linked-list
+# python-data-structure
 
 Simple basic linked list in python
 
 # Installing
 
 ```shell
-git clone https://github.com/muhammadriy3d/python-linked-list.git
-cd python-linked-list
+git clone https://github.com/muhammadriy3d/python-data-structure.git
+cd python-data-structure
 make build
 make install
 ```
@@ -15,7 +15,7 @@ make install
 
 ```shell
 make 
-make test
+make test // for testing
 ```
 
 # Usage
