@@ -1,5 +1,6 @@
 import time
 
+
 class LinkedList:
     class Node:
         def __init__(self, value=0):

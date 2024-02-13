@@ -22,7 +22,7 @@ class Binaryroot:
                         current.left = node
                         break
                     current = current.left
-                if (data > current.data):
+                if (data >= current.data):
                     if (current.right is None):
                         current.right = node
                         break
@@ -61,33 +61,66 @@ class Binaryroot:
             leftVal = []
             rightVal = []
             if (root.left):
-                leftVal = self.dfs(root.left)
+                leftVal = self.dfs_recursion(root.left)
             if (root.right):
-                rightVal = self.dfs(root.right)
+                rightVal = self.dfs_recursion(root.right)
             return root.data, leftVal, rightVal
         return []
 
 
-bst = Binaryroot()
+def main():
+    # Binary Search Tree
+    bst = Binaryroot()
 
-#       15
-#     /    \
-#    5      43
-#   / \    /  \
-#  3  14  33   50
+    #       15
+    #     /    \
+    #    5      43
+    #   / \    /  \
+    #  3  14  33   50
 
-bst.insert(15)
-bst.insert(5)
-bst.insert(3)
-bst.insert(43)
-bst.insert(33)
-bst.insert(50)
-bst.insert(14)
+    bst.insert(15)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(43)
+    bst.insert(33)
+    bst.insert(50)
+    bst.insert(14)
 
-bfs = bst.bfs(bst.tree)
-dfs = bst.dfs(bst.tree)
-dfs_rec = bst.dfs_recursion(bst.tree)
+    bfs = bst.bfs(bst.tree)
+    dfs = bst.dfs(bst.tree)
+    dfs_rec = bst.dfs_recursion(bst.tree)
 
-print(bfs)
-print(dfs)
-print(dfs_rec)
+    print(bfs)
+    print(dfs)
+    print(dfs_rec)
+
+
+def quick_test():
+    # Binary Search Tree
+    bst = Binaryroot()
+
+    #       15
+    #     /    \
+    #    5      43
+    #   / \    /  \
+    #  3  14  33   50
+
+    bst.insert(15)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(43)
+    bst.insert(33)
+    bst.insert(50)
+    bst.insert(14)
+
+    bfs = bst.bfs(bst.tree)
+    dfs = bst.dfs(bst.tree)
+    dfs_rec = bst.dfs_recursion(bst.tree)
+
+    print(bfs)
+    print(dfs)
+    print(dfs_rec)
+
+
+if __name__ == "__main__":
+    main()

@@ -35,5 +35,6 @@ clean:
 
 test:
 	python3 tests/test_linked_list.py
+	python3 tests/test_binary_tree.py
 
 endif

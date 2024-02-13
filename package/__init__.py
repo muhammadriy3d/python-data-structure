@@ -1,1 +1,2 @@
-from . import linked_list
+# File: __init__.py
+# This file intentionally left blank
