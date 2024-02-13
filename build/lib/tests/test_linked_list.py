@@ -1,10 +1,12 @@
-import unittest
-import os
-import sys
-sys.path.insert(0, os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..')))
-
 from package import linked_list
+import unittest
+
+import sys
+import os
+
+# Add the parent directory of 'project' to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 class TestLinkedList(unittest.TestCase):
 

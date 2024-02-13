@@ -1,3 +1,6 @@
-from linked_list import quick_test
+import linked_list
+import binary_tree
 
-quick_test()
+linked_list.quick_test()
+binary_tree.quick_test()
+
