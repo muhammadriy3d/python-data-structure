@@ -1,3 +1,4 @@
+from numpy import Infinity
 from helpers.buildGraph import buildGraph
 
 
@@ -104,6 +105,116 @@ def explore(graph, current, visited):
     return True
 
 
+def largestComponent(graph):
+    visited = set()
+    largest = 0
+    for node in graph:
+        size = exploreSize(graph, node, visited)
+        if (size > largest):
+            largest = size
+    return largest
+
+
+def exploreSize(graph, current, visited):
+    if (current in visited):
+        return 0
+    visited.add(current)
+    size = 1
+    for neighbors in graph[current]:
+        size += exploreSize(graph, neighbors, visited)
+    return size
+
+
+def shortestPath(edges, src, target):
+    graph = buildGraph(edges)
+
+    # breadth first is good for this problem for efficiency and easy calculations
+    visited = set([src])
+    queue = [[src, 0]]
+    while (len(queue) > 0):
+        [current_node, distance] = queue.pop(0)
+        if (current_node is target):
+            return distance
+
+        for neighbors in graph[current_node]:
+            if not (neighbors in visited):
+                visited.add(neighbors)
+                queue.append([neighbors, distance + 1])
+
+    return -1
+
+
+def islandCount(grid):
+    visited = set()
+
+    count = 0
+    for r in range(len(grid)):
+        for c in range(len(grid[0])):
+            if (exploreIsland(grid, r, c, visited)):
+                count += 1
+    return count
+
+
+def exploreIsland(grid, r, c, visited):
+    rowInbounds = 0 <= r and r < len(grid)
+    colInbounds = 0 <= c and c < len(grid[0])
+    if (not (rowInbounds) or not (colInbounds)):
+        return False
+
+    if grid[r][c] == "W":
+        return False
+
+    pos = r, ",", c
+    if (pos in visited):
+        return False
+    visited.add(pos)
+
+    exploreIsland(grid, r - 1, c, visited)
+    exploreIsland(grid, r + 1, c, visited)
+    exploreIsland(grid, r, c - 1, visited)
+    exploreIsland(grid, r, c + 1, visited)
+
+    return True
+
+
+def minIslandSize(grid):
+    visited = set()
+    size = 0
+    min = Infinity
+
+    for r in range(len(grid)):
+        for c in range(len(grid[0])):
+            size = exploreIslandSize(grid, r, c, visited)
+            if (size > 0 and size < min):
+                min = size
+
+    return min
+
+
+def exploreIslandSize(grid, r, c, visited):
+    rowInbounds = 0 <= r and r < len(grid)
+    colInbounds = 0 <= c and c < len(grid[0])
+    if not (rowInbounds) or not (colInbounds):
+        return 0
+
+    if grid[r][c] == "W":
+        return 0
+
+    pos = r, ",", c
+    if pos in visited:
+        return 0
+
+    visited.add(pos)
+
+    size = 1
+    size += exploreIslandSize(grid, r - 1, c, visited)
+    size += exploreIslandSize(grid, r + 1, c, visited)
+    size += exploreIslandSize(grid, r, c - 1, visited)
+    size += exploreIslandSize(grid, r, c + 1, visited)
+
+    return size
+
+
 def undirectedGraph():
     return [
         ['i', 'j'],
@@ -148,6 +259,40 @@ def pathGraph():
     }
 
 
+def mazeGraph():
+    return [
+        ['a', 'c'],
+        ['a', 'b'],
+        ['c', 'b'],
+        ['c', 'd'],
+        ['b', 'd'],
+        ['e', 'd'],
+        ['g', 'f']
+    ]
+
+
+def grid():
+    return [
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'W', 'W', 'L', 'W'],
+        ['W', 'W', 'L', 'L', 'W'],
+        ['L', 'W', 'W', 'L', 'L'],
+        ['L', 'L', 'W', 'W', 'W'],
+    ]
+
+
+def gridMin():
+    return [
+        ['W', 'L', 'W', 'W', 'L', 'W'],
+        ['L', 'L', 'W', 'W', 'L', 'W'],
+        ['W', 'L', 'W', 'W', 'W', 'W'],
+        ['W', 'W', 'W', 'L', 'L', 'W'],
+        ['W', 'W', 'W', 'L', 'L', 'W'],
+        ['W', 'W', 'W', 'L', 'W', 'W'],
+    ]
+
+
 def main():
     # Normall item printing in graph
     print("Depth first search:")
@@ -184,7 +329,27 @@ def main():
 
     print("connected component count:")
     ccc = connectedComponentsCount(componentGraph())
-    print(ccc) # excpect 2
+    print(ccc)  # excpect 2
+    print()
+
+    print("largest component:")
+    lc = largestComponent(componentGraph())
+    print(lc)
+    print()
+
+    print("shortest path:")
+    sp = shortestPath(mazeGraph(), 'a', 'e')  # -> 3
+    print(sp)
+    print()
+
+    print("Island count:")
+    ic = islandCount(grid())
+    print(ic)
+    print()
+
+    print("min Island count size:")
+    mics = minIslandSize(gridMin())
+    print(mics)
     print()
 
 
