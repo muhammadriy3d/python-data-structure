@@ -1,0 +1,138 @@
+#!/usr/bin/python3
+
+# AUTOMATION TOOL: File classify
+# Author: Muhammad Riyad
+# IdeaOrigin: Internet made coder
+# Date: 16:15:22 Sat Oct 28
+# MADE WITH LOVE
+# Copyright (c) 2023 Muhammad Riyad. 
+
+import os
+import shutil
+import random
+
+ABSPATH = os.path.abspath("$HOME/Downloads/")
+ABSEXT = []
+FILES = []
+PNG = []
+WEBP = []
+JPG = []
+JPEG = []
+SVG = []
+GIF = []
+PDF = []
+ZIP = []
+TXT = []
+JSON = []
+TAR = []
+GZ = []
+XZ = []
+CSV = []
+PY = []
+IPYNB = []
+DOCX = []
+MD = []
+TTF = []
+MP4 = []
+MP3 = []
+EXE = []
+SH = []
+DEB = []
+TOML = []
+HTML = []
+CSS = []
+JS = []
+C = []
+PPTX = []
+RUN = []
+APK = []
+OTHER = []
+
+exts = []
+fname = []
+
+
+def main():
+
+  if (os.path.exists(ABSPATH) and os.path.isdir(ABSPATH)):    
+    FILES = os.listdir(ABSPATH)
+    for file in FILES:
+      file_name, file_ext = os.path.splitext(file)
+      fname.append(file_name)
+      exts.append(file_ext)
+      
+      for e in exts:
+        if (e != ""): #and e in (".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".html", ".css", ".js", ".zip", ".tar", ".gz", ".xz", ".mp4", ".mp3", ".toml", ".pdf", ".deb", ".md", ".py", ".sh", ".ttf", ".csv", ".txt", ".json", ".docx", ".pptx", ".run", ".mp4", ".mp3", ".apk")
+          garbage, ABSEXT = e.split(".")
+          if ABSEXT != "":
+            if os.path.exists(os.path.join(ABSPATH, ABSEXT)):
+              print("Directory already exists!")
+            else:
+              mkdir(ABSPATH, ABSEXT)
+          classify(file, OTHER, e)
+          
+      # Move files to correct file class
+      # Manually doing it
+      # classify(file, PNG, ".png")
+      # classify(file, JPG, ".jpg")
+      # classify(file, JPEG, ".jpeg")
+      # classify(file, WEBP, ".webp")
+      # classify(file, SVG, ".svg")
+      # classify(file, GIF, ".gif")
+      # classify(file, PDF, ".pdf")
+      # classify(file, TAR, ".tar")
+      # classify(file, GZ, ".gz")
+      # classify(file, XZ, ".xz")
+      # classify(file, EXE, ".exe")
+      # classify(file, HTML, ".html")
+      # classify(file, CSS, ".css")
+      # classify(file, JS, ".js")
+      # classify(file, C, ".c")
+      # classify(file, MD, ".md")
+      # classify(file, PY, ".py")
+      # classify(file, TOML, ".toml")
+      # classify(file, ZIP, ".zip")
+      # classify(file, DEB, ".deb")
+      # classify(file, SH, ".sh")
+      # classify(file, PPTX, ".pptx")
+      # classify(file, TTF, ".ttf")
+      # classify(file, CSV, ".csv")
+      # classify(file, TXT, ".txt")
+      # classify(file, JSON, ".json")
+      # classify(file, DOCX, ".docx")
+      # classify(file, RUN, ".run")
+      # classify(file, MP4, ".mp4")
+      # classify(file, MP3, ".mp3")
+      # classify(file, APK, ".apk")
+
+      
+def mkdir(path, filename):
+  if not (filename == None):
+    os.mkdir(os.path.join(path, filename))
+    print(f"Directory {filename} created successfully in {ABSPATH}")
+  else:
+    print("Directory already exists!")
+  
+
+def moveFile(filename, old_path, new_path):
+  if (os.path.exists(os.path.join(new_path, filename))):
+    print("file already exists the operation changed!")
+    random_integer = random.randint(0, 1000000000)
+    shutil.move(os.path.join(old_path, filename), os.path.join(new_path, f"{random_integer}_{filename}"))
+  else:
+    shutil.move(os.path.join(old_path, filename), os.path.join(new_path, filename))
+    print(f"{filename} moved to {os.path.join(new_path, filename)}")
+
+
+def classify(file, extList, extName):
+  garbage, ext = extName.split('.')
+  if (file.endswith(extName)):
+    extList.append(file)
+    for p in extList:
+      try:
+        moveFile(p, ABSPATH, os.path.join(ABSPATH, ext))
+      except:
+        print(f"{p} Failed to move!")
+
+if __name__ == "__main__":
+    main()
